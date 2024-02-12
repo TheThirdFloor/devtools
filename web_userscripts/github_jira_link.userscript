@@ -8,6 +8,8 @@
 // @run-at       document-end
 // @noframes
 // @grant        none
+// @updateURL    https://raw.githubusercontent.com/TheThirdFloor/devtools/master/web_userscripts/github_jira_link.userscript
+// @downloadURL  https://raw.githubusercontent.com/TheThirdFloor/devtools/master/web_userscripts/github_jira_link.userscript
 // ==/UserScript==
 
 const jiraUrl     = "https://ttf.atlassian.net";

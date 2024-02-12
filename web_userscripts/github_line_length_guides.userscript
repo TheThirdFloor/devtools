@@ -1,8 +1,7 @@
 // ==UserScript==
 // @name        GitHub Code Guides
 // @version     1.1.14
-// @description A userscript that allows you to add one or more vertical guidelines to the code
-// @license     MIT
+// @description A userscript that adds line length guides for TheThirdFloor code style standards
 // @author      Forked from Rob Garrison
 // @namespace   TTF_GitHub_Line_Length_Marks
 // @include     https://github.com/*
@@ -11,14 +10,10 @@
 // @grant       GM_setValue
 // @grant       GM_registerMenuCommand
 // @icon        https://github.githubassets.com/pinned-octocat.svg
-// @updateURL   https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-code-guides.user.js
-// @downloadURL https://raw.githubusercontent.com/Mottie/GitHub-userscripts/master/github-code-guides.user.js
-// @supportURL  https://github.com/Mottie/GitHub-userscripts/issues
+// @updateURL   https://raw.githubusercontent.com/TheThirdFloor/devtools/master/web_userscripts/github_line_length_guides.userscript
+// @downloadURL https://raw.githubusercontent.com/TheThirdFloor/devtools/master/web_userscripts/github_line_length_guides.userscript
 // ==/UserScript==
-/* copy into textarea to check the guides
-         1         2         3         4         5         6         7         8
-1234567890123456789012345678901234567890123456789012345678901234567890123456789012345
-*/
+
 (() => {
 	"use strict";
 	const style = document.createElement("style");
