@@ -1,0 +1,79 @@
+// ==UserScript==
+// @name         GitHub/JIRA Links
+// @namespace    http://github.com/TheThirdFloor
+// @author       Forked from knl, modded for TTF
+// @version      1.2.2
+// @description  Link to JIRA tickets from Github
+// @match        https://github.com/TheThirdFloor/**
+// @run-at       document-end
+// @noframes
+// @grant        none
+// ==/UserScript==
+
+const jiraUrl     = "https://ttf.atlassian.net";
+const issueRegExp = /\b((?:[A-Z]+|PIPE001)\-[0-9]+)\b/g;
+
+function doIt(node) {
+  // we actually iterate over the whole document now
+  document.querySelectorAll("p, pre, h1, span, td").forEach(function(elem) {
+    const tagsRe = /(<(?:.|\n)+?>|&\\w+;)/;
+    // track if we are in the same link, and prevent replacement
+    var insideOurLink = false;
+
+    // This goes through the inner content of the element, and then
+    // makes sure it only replaces the visible content. Using plain 'replace'
+    // would possibly replace the href of a link or any other attribute of an
+    // element.
+    // To avoid this, the code splits the inner HTML by tags, and leaves tags
+    // untouched, while modifying all the other content, which should be text
+    // in this case.
+    // In order to avoid recursion with our own links, we keep track of the
+    // location in 'insideOurLink'.
+    const htmlParts = elem.innerHTML.split(tagsRe);
+    const r = htmlParts.map((item) => {
+      if (tagsRe.test(item)) {
+        if (item.startsWith(`<a class="github-jira-link"`) || item.startsWith(`<a class="issue-link`)) {
+            insideOurLink = true;
+        }
+        if (item === "</a>") {
+            insideOurLink = false;
+        };
+        return item;
+      } else {
+        return insideOurLink ? item : item.replace(issueRegExp, `<a class="github-jira-link" href="${jiraUrl}/browse/$1">$1</a>`);
+      }
+    }).join('');
+
+    elem.innerHTML = r;
+  });
+}
+
+/* Wait for selected elements to appear on the page and process them */
+function waitForKeyElements (
+  selectorTxt,    /* Required: The selector string that specifies the desired element(s). */
+  actionFunction, /* Required: The code to run when elements are found. Gets a node to the matched element. */
+) {
+  document.querySelectorAll(selectorTxt).forEach(function(node) {
+    var alreadyFound = node.alreadyFound || false;
+
+    if (!alreadyFound) {
+      //--- Call the payload function.
+      actionFunction(node);
+      node.alreadyFound = true;
+    }
+  });
+
+  var timeControl = waitForKeyElements.timeControl;
+
+  //--- Set a timer, if needed.
+  if (!timeControl) {
+    timeControl = setInterval(function () {
+      waitForKeyElements(selectorTxt, actionFunction);
+    },
+                              1000
+                             );
+    waitForKeyElements.timeControl = timeControl;
+  }
+}
+
+waitForKeyElements ("#commits_bucket, #discussion_bucket, #files_bucket, .subnav, .repository-content", doIt);
