@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name        GitHub Code Guides
-// @version     1.1.15
+// @version     1.1.18
 // @description A userscript that adds line length guides for TheThirdFloor code style standards
 // @author      Forked from Rob Garrison
 // @namespace   TTF_GitHub_Line_Length_Marks
