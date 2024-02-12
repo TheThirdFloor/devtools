@@ -2,7 +2,7 @@
 // @name         GitHub/JIRA Links
 // @namespace    http://github.com/TheThirdFloor
 // @author       Forked from knl, modded for TTF
-// @version      1.2.2
+// @version      1.2.3
 // @description  Link to JIRA tickets from Github
 // @match        https://github.com/TheThirdFloor/**
 // @run-at       document-end
