@@ -1,3 +1,3 @@
-This repo hosts internal utilities for TheThirdFloor developers, which in order to interoperate with other things, needed to be accessible without need for authentication tokens.  They will not function in the wild, without access to other internal resources within our network.
+This repo hosts internal utilities for TheThirdFloor developers, which in order to interoperate with other things, needed to be accessible without authentication.  They will not function in the wild, without access to other resources that are not available to the public.
 
-The utilities here are not likely or intended to be functional outside the organization, and are provided "As Is" with no warranty of being acceptable for any particular use.
+The utilities here are not intended to function outside the organization.  They are provided "As Is" with no warranty of being helpful or acceptable for any particular use.
